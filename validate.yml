@@ -1,0 +1,18 @@
+# Equivalent workflow created because the instructor's original was not supplied.
+name: Assignment 2 Preflight
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  preflight:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install GCC 14
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++-14
+      - name: Validate
+        env:
+          CXX: g++-14
+        run: python3 validate.py
